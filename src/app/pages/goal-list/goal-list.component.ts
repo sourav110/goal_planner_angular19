@@ -28,7 +28,7 @@ export class GoalListComponent implements OnInit {
 
   getAllGoalsByUser() {
     debugger
-    const userId = 1; //this.authServiceaa.loggedUserData.userId;
+    const userId = this.authServiceaa.loggedUserData.userId;
     this.goalService.getAllGoalsByUser(userId).subscribe((res: any) => {
       if (res) {
         this.goalList = res;

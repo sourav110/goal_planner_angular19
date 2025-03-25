@@ -16,4 +16,8 @@ export class GoalService {
   getAllGoalsByUser(userId: number) {
     return this.http.get(this.apiUrl + "getAllGoalsByUser?userId=" + userId);
   }
+
+  createGoal(obj: any) {
+    return this.http.post(this.apiUrl + "createGoalWithMilestones", obj);
+  }
 }

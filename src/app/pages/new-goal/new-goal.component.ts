@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { GoalService } from '../../services/goal.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-new-goal',
@@ -10,10 +12,13 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular
 export class NewGoalComponent {
 
   goalForm: FormGroup = new FormGroup({});
+  goalService = inject(GoalService);
+  authService = inject(AuthService);
 
   constructor() {
     this.initializeGoalForm();
     this.initializeMilestoneForm();
+    this.goalForm.get('userId')?.setValue(this.authService.loggedUserData.userId);
   }
 
   initializeGoalForm() {
@@ -45,5 +50,19 @@ export class NewGoalComponent {
     this.milestoneList.push(newMilestone);
   }
 
+  onSaveGoal() {
+    debugger
+    const formValue = this.goalForm.value;
+    this.goalService.createGoal(formValue).subscribe((res: any) => {
+      if (res) {
+        alert('Saved Successfully');
+        this.initializeGoalForm();
+        this.initializeMilestoneForm();
+        this.goalForm.get('userId')?.setValue(this.authService.loggedUserData.userId);
+      }
+    }, error => {
+      alert(error.error);
+    })
+  }
 
 }
