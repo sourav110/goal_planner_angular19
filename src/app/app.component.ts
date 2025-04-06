@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Login, Register } from './models/auth';
 import { AuthService } from './services/auth.service';
